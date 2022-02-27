@@ -9,6 +9,12 @@
 
 #undef close
 
+#ifdef _WIN64
+#define DLGCALLBACK_T INT_PTR
+#else
+#define DLGCALLBACK_T BOOL
+#endif
+
 bool LoadFM2(MovieData& movieData, std::istream* fp, int size, bool stopAfterHeader);
 
 bool replayreadonly=1;
@@ -57,7 +63,7 @@ void Describe(HWND hwndDlg)
 }
 
 //Replay movie dialog
-INT_PTR CALLBACK ReplayDialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+DLGCALLBACK_T CALLBACK ReplayDialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	OPENFILENAME ofn;
 	char szChoice[MAX_PATH]={0};
@@ -118,7 +124,7 @@ int controllers=1;
 std::string sramfname;
 
 //Record movie dialog
-static INT_PTR CALLBACK RecordDialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+static DLGCALLBACK_T CALLBACK RecordDialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	static struct CreateMovieParameters* p = NULL;
 	std::string author = "";

@@ -26,6 +26,12 @@
 	#include <fstream.h>
 #endif
 
+#ifdef _WIN64
+#define HWNDPARENT_T GWLP_HWNDPARENT
+#else
+#define HWNDPARENT_T GWL_HWNDPARENT
+#endif
+
 #include "hotkey.h"
 
 #include "main.h"
@@ -1085,7 +1091,7 @@ static LRESULT CALLBACK InputCustomWndProc(HWND hwnd, UINT msg, WPARAM wParam, L
 {
 	// retrieve the custom structure POINTER for THIS window
     InputCust *icp = GetInputCustom(hwnd);
-	HWND pappy = (HWND__ *)GetWindowLongPtr(hwnd,GWLP_HWNDPARENT);
+	HWND pappy = (HWND__ *)GetWindowLongPtr(hwnd, HWNDPARENT_T);
 	funky= hwnd;
 
 	static HWND selectedItem = NULL;
@@ -1228,7 +1234,7 @@ static LRESULT CALLBACK GuitarInputCustomWndProc(HWND hwnd, UINT msg, WPARAM wPa
 {
 		// retrieve the custom structure POINTER for THIS window
     InputCust *icp = GetInputCustom(hwnd);
-	HWND pappy = (HWND__ *)GetWindowLongPtr(hwnd,GWLP_HWNDPARENT);
+	HWND pappy = (HWND__ *)GetWindowLongPtr(hwnd,HWNDPARENT_T);
 	funky= hwnd;
 
 	static HWND selectedItem = NULL;
@@ -2718,7 +2724,7 @@ static LRESULT CALLBACK HotInputCustomWndProc(HWND hwnd, UINT msg, WPARAM wParam
 {
 	// retrieve the custom structure POINTER for THIS window
     InputCust *icp = GetInputCustom(hwnd);
-	HWND pappy = (HWND__ *)GetWindowLongPtr(hwnd,GWLP_HWNDPARENT);
+	HWND pappy = (HWND__ *)GetWindowLongPtr(hwnd,HWNDPARENT_T);
 	funky= hwnd;
 
 	static HWND selectedItem = NULL;

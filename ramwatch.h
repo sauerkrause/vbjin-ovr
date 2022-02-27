@@ -39,4 +39,11 @@ bool Load_Watches(bool clear, const char* filename);
 LRESULT CALLBACK RamWatchProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 extern HWND RamWatchHWnd;
 
+#ifdef _WIN64
+#define SETWINDOWL SetWindowLongPtr
+#define MSGRESULT_T DWLP_MSGRESULT
+#else
+#define SETWINDOWL SetWindowLong
+#define MSGRESULT_T DWL_MSGRESULT
+#endif
 #endif
